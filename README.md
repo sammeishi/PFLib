@@ -1,5 +1,13 @@
-public front libs
-1: support in common libs
-2: support requirejs
-3: support merge
-4: supoort mutil-project build
+前端公共库
+1：提供常用资源的获取，版本支持
+2：提供对资源特定文件的预处理，如压缩等
+3：提供对requirejs加载的支持
+4：提供对多工程编译处理
+
+@流程阶段
+1：获取阶段 getter
+从不同来源下载与更新指定版本的库
+2：预处理阶段 precut
+对每个库库的指定文件进行预处理，如果没有指定则跳过
+3：工程编译阶段 builder
+从入口启动参数获取编译的指定工程，载入工程编译文件，进行编译
