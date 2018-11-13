@@ -28,6 +28,9 @@ module.exports = {
             }
         }
     },
+    /*
+    * 工具相关
+    * */
     "jquery":{
         "latest":{
             source:{
@@ -43,15 +46,6 @@ module.exports = {
             }
         }
     },
-    "Vue":{
-        "latest":{
-            source:{
-                protocol: "npm", //来源协议
-                address: "vue" //来源地址
-            },
-            files: "dist/**/*"
-        }
-    },
     "lodash":{
         "latest":{
             source:{
@@ -61,6 +55,9 @@ module.exports = {
             files: ["lodash.js","lodash.min.js"]
         }
     },
+    /*
+    * 模块化工具
+    * */
     "RequireJS":{
         "latest":{
             source:{
@@ -70,6 +67,18 @@ module.exports = {
             files: "*.js",
             //压缩主文件
             gulp:LIB_GULP_TASK.minifyJs( "*.js" )
+        }
+    },
+    /*
+    * 框架相关
+    * */
+    "Vue":{
+        "latest":{
+            source:{
+                protocol: "npm", //来源协议
+                address: "vue" //来源地址
+            },
+            files: "dist/**/*"
         }
     },
     "layui":{
@@ -92,6 +101,9 @@ module.exports = {
             gulp:LIB_GULP_TASK.minifyJs( "*.js" )
         }
     },
+    /*
+    * 动画相关库
+    * */
     "animate":{
         "latest":{
             source:{
@@ -103,4 +115,12 @@ module.exports = {
             gulp:LIB_GULP_TASK.minifyCss( "*.css" )
         }
     },
+    "velocity":{
+        "latest":{
+            source:{
+                protocol:"url",
+                address:"https://raw.githubusercontent.com/julianshapiro/velocity/master/velocity.min.js",
+            }
+        }
+    }
 };
