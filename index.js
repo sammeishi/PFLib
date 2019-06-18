@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * 执行入口
  * 通过命令行参数调用
@@ -27,7 +28,7 @@ let projectConf = argv.project ? ( "./project/" + argv.project ) : ( ( process.c
  *  参数的output/-o用于指定最终的outputPath
  */
 ( require('fs').existsSync( projectConf ) === false ) 
-    ? console.error('miss project file!') 
+    ? console.error('missing project file!') 
     : builder( (function () {
                     let p = require( projectConf );
                     p.outputPath = argv.output || null;
