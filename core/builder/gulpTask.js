@@ -60,7 +60,7 @@ function useGlobalVars(input) {
  */
 LIB_GULP_TASK.minifyJs = function (files) {
     return function () {
-        this.logger.info(`minifyJs lib:${this.currLib.name}`);
+        this.logger.info(`minifyJs lib:${files}`);
         let finalFiles = [];
         let libPath = this.currLib.outputPath;
         _.forEach(_.isArray(files) ? files : [files], function (file) {
@@ -81,7 +81,7 @@ LIB_GULP_TASK.minifyJs = function (files) {
  */
 LIB_GULP_TASK.minifyCss = function (files) {
     return function () {
-        this.logger.info(`minifyCss lib:${this.currLib.name}`);
+        this.logger.info(`minifyCss lib:${files}`);
         let finalFiles = [];
         let libPath = this.currLib.outputPath;
         _.forEach(_.isArray(files) ? files : [files], function (file) {
