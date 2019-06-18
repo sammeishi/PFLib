@@ -14,8 +14,7 @@ const   gulpTask = require("./gulpTask"),
         getter = require("./../getter/getter"),
         libDefine = require("./../../lib.define"),
         path = require('path'),
-        _ = require("lodash"),
-        CWD_PATH = process.cwd() + "/"; //命令行内的当前路径
+        _ = require("lodash");
 //工程配置文件,外部传入！
 let project = null;
 //debug等级
@@ -26,15 +25,6 @@ logger.level = "debug";
  * */
 function init() {
     return new Promise(function (S, J) {
-        /**
-         * 创建输出路径
-         * 不指定，默认为CWD
-         * 相对路径也是相对于CWD
-         */
-        project.outputPath =
-            (project.outputPath
-                ? path.resolve(CWD_PATH, project.outputPath)
-                : CWD_PATH) + "/";
         //创建工程id以及工作目录
         project.id = Date.now();
         project.workPath = project.outputPath + project.id + "/";

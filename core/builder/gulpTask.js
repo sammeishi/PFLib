@@ -110,7 +110,7 @@ LIB_GULP_TASK.minifyCss = function (files) {
  */
 GLOBAL_GULP_TASK.mergeJs = function (files, saveName, savePath, msg) {
     return function () {
-        this.logger.info(`global mergeJs ${msg ? ": " + useGlobalVars(msg) : ""}`);
+        this.logger.info(`global mergeJs ${msg ? ": " + useGlobalVars(msg) : files }`);
         return this.gulp
             .src(useGlobalVars(files))
             .pipe(this.plugins.concat(saveName))
