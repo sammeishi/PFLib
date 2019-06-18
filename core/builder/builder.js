@@ -13,7 +13,7 @@ const logger = require('log4js').getLogger("builder");
 const path = require('path');
 const fse = require('fs-extra');
 const getter = require("./../getter/getter");
-const supportLibrarys = require('./../../librarys');
+const libDefine = require('./../../lib.define');
 const _ = require('lodash');
 let project = null;
 logger.level = 'debug';
@@ -27,19 +27,19 @@ function init(){
         project.workPath = TMP_PATH + project.id + "/";
         project.outputPath = path.resolve( ROOT_PATH,project.output || `./dist/${project.name}/` ) + "/";
         //初始化工程指定的类库配置
-        for(let name in project.librarys){
-            if( !project.librarys.hasOwnProperty(name) ){
+        for(let name in project.libraries){
+            if( !project.libraries.hasOwnProperty(name) ){
                 continue;
             }
-            let lib = project.librarys[ name ];
+            let lib = project.libraries[ name ];
             let ver = lib.version || "latest";
             //工程中的类库是否存在于预定义中
-            if( !_.has( supportLibrarys,name ) ){
+            if( !_.has( libDefine,name ) ){
                 logger.error(`can not found lib: ${ name }! `);
                 return J();
             }
             //类库版本是否存在，不存在报错
-            if( !_.has( supportLibrarys[ name ],ver ) ){
+            if( !_.has( libDefine[ name ],ver ) ){
                 logger.error(`can not found version: ${ ver }! `);
                 return J();
             }
@@ -48,8 +48,8 @@ function init(){
                 lib.version = ver;
             }
             //工程类库配置合并预定义类库配置
-            project.librarys[ name ].name = name;
-            project.librarys[ name ] = _.merge( {} ,supportLibrarys[ name ][ver],lib);
+            project.libraries[ name ].name = name;
+            project.libraries[ name ] = _.merge( {} ,libDefine[ name ][ver],lib);
         }
         //更新预定义gulp任务的project
         gulpTask.setProject( project );
@@ -64,15 +64,15 @@ function init(){
 * */
 function createGetter(){
     let getterList = [];
-    for( let name in project.librarys ){
-        if( project.librarys.hasOwnProperty(name) ){
-            let lib = project.librarys[ name ];
+    for( let name in project.libraries ){
+        if( project.libraries.hasOwnProperty(name) ){
+            let lib = project.libraries[ name ];
             let libOutputPath = project.outputPath + lib.name + "/";
             let g = new getter( lib, project.workPath, libOutputPath );
             getterList.push( g );
-            project.librarys[ name ].getter = g;
-            project.librarys[ name ].outputPath = libOutputPath;
-            project.librarys[ name ].path = libOutputPath;
+            project.libraries[ name ].getter = g;
+            project.libraries[ name ].outputPath = libOutputPath;
+            project.libraries[ name ].path = libOutputPath;
         }
     }
     return getterList.length === 0 ? false : getterList;
@@ -149,12 +149,12 @@ function execLibGulp(){
     * 数组中的每个子数组代表一个lib的任务列表
     * */
     let allLibTask = [];
-    _.forEach(project.librarys,function( lib ){
+    _.forEach(project.libraries,function( lib ){
         if( _.has(lib,'gulp') ){
             let env = {
                 currLib: lib, //当前lib
                 outputPath: project.outputPath,//工程输出目录
-                librarys: project.librarys //工程所有lib
+                libraries: project.libraries //工程所有lib
             }
             ,currLibTaskIds = [];
             _.forEach(_.isArray( lib.gulp ) ? lib.gulp : [ lib.gulp ],function ( taskFunc ) {
@@ -186,7 +186,7 @@ function execGlobalGulp(){
     let allTask = []; //所有任务。 子项是独立执行组，组内是taskId
     _.forEach(project.gulp,function( group ){
         let env = {
-            librarys: project.librarys,
+            libraries: project.libraries,
             outputPath: project.outputPath,//工程输出目录
         }
         ,groupTaskIds = [];
