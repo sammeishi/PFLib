@@ -28,7 +28,7 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "log4js": "^3.0.6",
     "minimist": "^1.2.0",
     "pacote": "^9.1.0",
