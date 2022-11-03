@@ -23,7 +23,7 @@
     "fs-extra": "^7.0.0",
     "git-clone": "^0.1.0",
     "git-repo-info": "^2.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.4.0",
